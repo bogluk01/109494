@@ -1,0 +1,30 @@
+﻿@page "/"
+
+@inject ISessionStorage SessionStorage
+@using Blazor.Extensions.Storage.Interfaces
+
+<PageTitle>Bisiakowski Dominik</PageTitle>
+
+<h1>Dominik Bisiakowski</h1>
+<h2>109588</h2>
+<h3>grupa 1</h3>
+
+
+<p>Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private int currentCount = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        currentCount = await SessionStorage.GetItem<int>("counter");
+    }
+
+    private async void IncrementCount()
+    {
+        currentCount++;
+        await SessionStorage.SetItem<int>("counter", currentCount);
+    }
+}
